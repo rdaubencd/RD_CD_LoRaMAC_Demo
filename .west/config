@@ -1,0 +1,8 @@
+# Define the main manifest file.
+[manifest]
+path = PingPong
+file = west.yml
+
+[zephyr]
+base = zephyr
+

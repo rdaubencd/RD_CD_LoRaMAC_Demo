@@ -1,0 +1,46 @@
+#
+# COPYRIGHT 2022 CONNECTED DEVELOPMENT, A DIVISION OF
+# EXPONENTIAL TECHNOLOGY GROUP.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+# This is the top-level manifest file.  It contains the list of other repos and
+# their revisions for the project build. The first repo is the nRF Connect SDK, 
+# which is itself a manifest repo that references all other repos to be used in 
+# the build. Next, this manifest references other repos that have been modified 
+# by Connected Development for the project. These will override the unmodified 
+# repos that are referenced in the nRF Connect SDK manifest. 
+
+manifest:
+  remotes:
+    # The nRF Connect SDK base.
+    - name: ncs
+      url-base: https://github.com/nrfconnect
+
+    # The CD repo base.
+    - name: cdrepo
+      url-base: https://github.com/rdaubencd
+
+  projects:
+    # Import the nRF Connect SDK.
+    - name: nrf
+      repo-path: sdk-nrf
+      remote: ncs
+      revision: v2.1.0
+      import:
+        # Skip the projects that we will override below.
+        name-blocklist:
+          - loramac-node
+      clone-depth: 1
+
+    # Override an nRF SDK repo with our modified fork copy:
+    - name: zephyr-loramac-node
+      # The remote name from above.
+      remote: cdrepo
+      # Version to clone.  Tag: PingPong_Demo_v1.0
+      revision: bcb2fd53020ee9bc5cceab6460b1da45da524522
+      # Relative local path specifying where to clone the repository.
+      path: ConDev/modules/lib/loramac-node
+
+  self:
+    path: PingPong
