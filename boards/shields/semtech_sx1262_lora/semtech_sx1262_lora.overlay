@@ -1,0 +1,42 @@
+/*********************************************************************
+ * COPYRIGHT 2022 CONNECTED DEVELOPMENT, A DIVISION OF EXPONENTIAL
+ * TECHNOLOGY GROUP.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ ********************************************************************/
+
+/ {
+	aliases {
+		lora0 = &lora;
+	};
+};
+
+/* Additions to arduino_spi (spi3) in nrf52840dk_nrf52840.dts. */
+&arduino_spi {
+	status = "okay";
+	/* NSS Slave Select on D7 - GPIO 1.8 */
+	cs-gpios = <&arduino_header 13 GPIO_ACTIVE_LOW>;
+
+	/*  The SPI bus pins <spi3_default> are defined in nrf52840dk_nrf52840-pinctrl.dtsi: */
+    /*      SCK  - GPIO 1.13 */
+    /*      MISO - GPIO 1.14 */
+    /*      MOSI - GPIO 1.13 */
+
+	lora: sx1262@0 {
+		compatible = "semtech,sx1262";
+		reg = <0x0>;
+		label = "sx1262";
+		spi-max-frequency = <3000000>;
+
+		/* Enable SX126x DIO2 output to drive RF switch. */
+		dio2-tx-enable;
+
+		/* GPIO pins on the Arduino connector: */
+		/* Reset output on A0 - GPIO 0.3 */
+		reset-gpios = <&arduino_header 0 GPIO_ACTIVE_LOW>;
+		/* Busy input on D3 - GPIO 1.4 */
+		busy-gpios  = <&arduino_header 9 (GPIO_PULL_DOWN | GPIO_ACTIVE_HIGH)>;
+		/* Interrupt input on D5 - GPIO 1.6 */
+		dio1-gpios  = <&arduino_header 11 (GPIO_PULL_DOWN | GPIO_ACTIVE_HIGH)>;
+	};
+};

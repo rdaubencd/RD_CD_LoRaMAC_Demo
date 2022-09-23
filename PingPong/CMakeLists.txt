@@ -17,4 +17,4 @@ target_sources(app PRIVATE ${app_sources})
 
 # Add additional includes for main.c.
 target_include_directories(app PRIVATE
-    C:/Nordic/v2.0.0/modules/lib/loramac-node/src/radio)
+    C:/Nordic/v2.1.0/modules/lib/loramac-node/src/radio)

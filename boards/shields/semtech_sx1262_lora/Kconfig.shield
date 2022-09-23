@@ -1,0 +1,8 @@
+#
+# COPYRIGHT 2022 CONNECTED DEVELOPMENT, A DIVISION OF
+# EXPONENTIAL TECHNOLOGY GROUP.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+config SHIELD_SEMTECH_SX1262_LORA
+	def_bool $(shields_list_contains,semtech_sx1262_lora)
