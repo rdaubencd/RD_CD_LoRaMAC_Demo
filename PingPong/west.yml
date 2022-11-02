@@ -37,8 +37,8 @@ manifest:
     - name: zephyr-loramac-node
       # The remote name from above.
       remote: cdrepo
-      # Version to clone.  Tag: PingPong_Demo_v1.0
-      revision: bcb2fd53020ee9bc5cceab6460b1da45da524522
+      # Version to clone:  Latest on develop_CD
+      revision: 02ed274fc8db17b02a3e1d50a728bd211f4cb515
       # Relative local path specifying where to clone the repository.
       path: ConDev/modules/lib/loramac-node
 

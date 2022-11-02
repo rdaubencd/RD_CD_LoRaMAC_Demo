@@ -2,6 +2,9 @@
 
 cmake_minimum_required(VERSION 3.20.0)
 
+# Define the shield.
+set(SHIELD semtech_sx1262_lora)
+
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(lorawan)
 
