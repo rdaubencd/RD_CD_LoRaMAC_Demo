@@ -1,3 +1,7 @@
+#
+# COPYRIGHT 2022 CONNECTED DEVELOPMENT, A DIVISION OF
+# EXPONENTIAL TECHNOLOGY GROUP.
+#
 # SPDX-License-Identifier: Apache-2.0
 
 cmake_minimum_required(VERSION 3.20.0)

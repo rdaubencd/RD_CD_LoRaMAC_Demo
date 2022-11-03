@@ -1,3 +1,15 @@
+/*********************************************************************
+ * COPYRIGHT 2022 CONNECTED DEVELOPMENT, A DIVISION OF EXPONENTIAL
+ * TECHNOLOGY GROUP.
+ *
+ * This implements a Class A LoRaWAN application.
+ *
+ * Copied from the example in the nRF Connect SDK v2.1.0 at:
+ *     zephyr\samples\subsys\lorawan
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ ********************************************************************/
+
 /*
  * Class A LoRaWAN sample application
  *
