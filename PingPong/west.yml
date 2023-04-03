@@ -19,7 +19,7 @@ manifest:
 
     # The CD repo base.
     - name: cdrepo
-      url-base: https://github.com/rdaubencd
+      url-base: https://github.com/ConnectedDevelopment
 
   projects:
     # Import the nRF Connect SDK.
