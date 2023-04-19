@@ -296,7 +296,7 @@ void main(void)
    // Delay to allow debug logs from prior init functions to print.
    k_sleep(K_MSEC(500));
 
-   LOG_INF("Version 1.0  Build: %s %s", __DATE__, __TIME__);
+   LOG_INF("Version 2.0  Build: %s %s", __DATE__, __TIME__);
 
    if (!device_is_ready(lora_dev))
    {
@@ -331,8 +331,8 @@ void main(void)
    }
 
    config.frequency = 915000000;   // Frequency in Hz
-   config.bandwidth = BW_125_KHZ;  // Selects LORA_BW_125 = 4
-   config.datarate = 5;            // SpreadingFactor=5. SF_5 is not defined in enum lora_datarate
+   config.bandwidth = BW_500_KHZ;  // Selects LORA_BW_500 = 6
+   config.datarate = SF_10;        // SpreadingFactor=10.
    config.preamble_len = 12;
    config.coding_rate = CR_4_5;
    config.tx_power = 22;  // Max. Set in SX126xSetRfTxPower() - Also sets RampTime = 2 (RADIO_RAMP_40_US)
