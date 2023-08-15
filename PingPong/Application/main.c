@@ -65,10 +65,12 @@ static int8_t   snrValue = 0;
 static uint32_t pingCounter = 0;   // Send a different number with each PING packet.
 static uint32_t rxCounter = 0;   // Counter received in a PING or PONG packet.
 
-#define LED1_NODE    DT_ALIAS(led0)
-#define LED2_NODE    DT_ALIAS(led1)
-static const struct gpio_dt_spec led1Rx = GPIO_DT_SPEC_GET(LED1_NODE, gpios);
-static const struct gpio_dt_spec led2Tx = GPIO_DT_SPEC_GET(LED2_NODE, gpios);
+#ifdef USE_LEDS
+   #define LED1_NODE    DT_ALIAS(led0)
+   #define LED2_NODE    DT_ALIAS(led1)
+   static const struct gpio_dt_spec led1Rx = GPIO_DT_SPEC_GET(LED1_NODE, gpios);
+   static const struct gpio_dt_spec led2Tx = GPIO_DT_SPEC_GET(LED2_NODE, gpios);
+#endif
 
 static const struct device *lora_dev = DEVICE_DT_GET(DEFAULT_RADIO_NODE);
 
@@ -182,8 +184,10 @@ static void PingPong(void)
                {
                   if (strncmp((const char *) buffer, (const char *) pongMsg, 4) == 0)
                   {
+#ifdef USE_LEDS
                      // Toggle the Rx LED.
                      gpio_pin_toggle_dt(&led1Rx);
+#endif
 
                      rxCounter = (buffer[4] << 24) | (buffer[5] << 16) | (buffer[6] << 8) | (buffer[7]);
                      LOG_INF("Received PONG: %u (RSSI:%ddBm, SNR:%ddBm)",
@@ -200,9 +204,11 @@ static void PingPong(void)
                      isMaster = false;
                      LOG_HEXDUMP_INF(buffer, 8, "Received PING:");
 
+#ifdef USE_LEDS
                      // Turn LEDs off.
                      gpio_pin_set_dt(&led2Tx, 0);
                      gpio_pin_set_dt(&led1Rx, 1);
+#endif
 
                      RxLora(RX_TIMEOUT_VALUE);
                   }
@@ -220,8 +226,10 @@ static void PingPong(void)
                {
                   if (strncmp((const char *) buffer, (const char *) pingMsg, 4) == 0)
                   {
+#ifdef USE_LEDS
                      // Toggle the Rx LED.
                      gpio_pin_toggle_dt(&led1Rx);
+#endif
 
                      rxCounter = (buffer[4] << 24) | (buffer[5] << 16) | (buffer[6] << 8) | (buffer[7]);
                      LOG_INF("Received PING: %u (RSSI:%ddBm, SNR:%ddBm)",
@@ -253,8 +261,10 @@ static void PingPong(void)
             break;
 
          case TX:
+#ifdef USE_LEDS
             // Toggle the Tx LED.
             gpio_pin_toggle_dt(&led2Tx);
+#endif
             RxLora(RX_TIMEOUT_VALUE);
             break;
 
@@ -296,7 +306,7 @@ void main(void)
    // Delay to allow debug logs from prior init functions to print.
    k_sleep(K_MSEC(500));
 
-   LOG_INF("Version 2.0  Build: %s %s", __DATE__, __TIME__);
+   LOG_INF("Version 2.1  Build: %s %s", __DATE__, __TIME__);
 
    if (!device_is_ready(lora_dev))
    {
@@ -304,6 +314,7 @@ void main(void)
       return;
    }
 
+#ifdef USE_LEDS
    if (!device_is_ready(led1Rx.port))
    {
       LOG_ERR("%s: LED1 not ready", DT_NODE_FULL_NAME(LED1_NODE));
@@ -311,7 +322,7 @@ void main(void)
    }
 
    ret = gpio_pin_configure_dt(&led1Rx, GPIO_OUTPUT_INACTIVE);
- if (ret < 0)
+   if (ret < 0)
    {
       LOG_ERR("%s: LED1 config error",  DT_NODE_FULL_NAME(LED1_NODE));
       return;
@@ -329,6 +340,7 @@ void main(void)
       LOG_ERR("%s: LED2 config error", DT_NODE_FULL_NAME(LED2_NODE));
       return;
    }
+#endif
 
    config.frequency = 915000000;   // Frequency in Hz
    config.bandwidth = BW_500_KHZ;  // Selects LORA_BW_500 = 6

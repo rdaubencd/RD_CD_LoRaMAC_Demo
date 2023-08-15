@@ -1,0 +1,11 @@
+# IotaComm NRF52840 board configuration
+
+# Copyright (c) 2023 CONNECTED DEVELOPMENT, A DIVISION OF
+#   EXPONENTIAL TECHNOLOGY GROUP.
+
+# Copyright (c) 2016 Nordic Semiconductor ASA
+# SPDX-License-Identifier: Apache-2.0
+
+config BOARD_IOTACOMM_NRF52840
+	bool "IotaComm NRF52840"
+	depends on SOC_NRF52840_QIAA

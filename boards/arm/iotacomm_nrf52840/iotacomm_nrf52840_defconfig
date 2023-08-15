@@ -1,0 +1,50 @@
+# Copyright (c) 2023 CONNECTED DEVELOPMENT, A DIVISION OF
+#   EXPONENTIAL TECHNOLOGY GROUP.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+# Default config settings for the IotaComm board.
+
+CONFIG_SOC_SERIES_NRF52X=y
+CONFIG_SOC_NRF52840_QIAA=y
+CONFIG_BOARD_IOTACOMM_NRF52840=y
+
+# Enable MPU
+CONFIG_ARM_MPU=y
+
+# Enable hardware stack protection
+CONFIG_HW_STACK_PROTECTION=y
+
+# Enable RTT
+CONFIG_USE_SEGGER_RTT=y
+
+# Enable GPIO
+CONFIG_GPIO=y
+
+# Enable uart driver
+CONFIG_SERIAL=y
+
+# eNable console
+CONFIG_CONSOLE=y
+CONFIG_UART_CONSOLE=y
+
+# Additional board options
+CONFIG_GPIO_AS_PINRESET=y
+
+CONFIG_PINCTRL=y
+
+# SPI is used for the SX1262 LoRa interface.
+CONFIG_SPI=y
+
+# I2C is used for the BME680 pressure, temperature, humidity sensor interface.
+CONFIG_I2C=y
+
+# Enable sensor driver.
+#CONFIG_SENSOR=y
+
+# Enable MPU temperature sensor driver.
+#CONFIG_NRFX_TEMP=y
+
+#CONFIG_LORABASICSMODEM=y
+#CONFIG_REGION_IOTA_800=y
+#CONFIG_REGION_US_915=n

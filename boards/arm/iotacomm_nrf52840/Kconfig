@@ -1,0 +1,27 @@
+# IotaComm NRF52840 board configuration
+
+# Copyright (c) 2023 CONNECTED DEVELOPMENT, A DIVISION OF
+#   EXPONENTIAL TECHNOLOGY GROUP.
+
+# Copyright (c) 2016 Nordic Semiconductor ASA
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_IOTACOMM_NRF52840
+
+# If many DBG logs are enabled, override the default log buffer size.
+# This must be done before the original default value is defined in Kconfig.zephyr.
+config LOG_BUFFER_SIZE
+   int
+   default 10240 if LBM_LOG_LEVEL_DBG || SPI_LOG_LEVEL_DBG || LBM_HAL_DBG_DEEP
+
+config BOARD_ENABLE_DCDC
+	bool "DCDC mode"
+	select SOC_DCDC_NRF52X
+	default y
+
+config BOARD_ENABLE_DCDC_HV
+	bool "High Voltage DCDC converter"
+	select SOC_DCDC_NRF52X_HV
+	default y
+
+endif # BOARD_IOTACOMM_NRF52840
